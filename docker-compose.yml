@@ -6,6 +6,4 @@ services:
     container_name: currency-scraper
     ports:
       - "3333:3333"
-    env_file:
-      - .env
     restart: unless-stopped
