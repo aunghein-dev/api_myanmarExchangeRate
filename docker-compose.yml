@@ -7,6 +7,4 @@ services:
     ports:
       - "3333:3333"
     restart: unless-stopped
-    environment:
-      NAV_URL: https://finance.naver.com/marketindex/exchangeList.naver
-      MM_URL: https://www.mmexchange.org/
+
