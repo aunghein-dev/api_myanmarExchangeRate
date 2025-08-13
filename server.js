@@ -75,7 +75,6 @@ const NAV_URL = process.env.NAV_URL;
 const fetchExchangeRates = async () => {
   let browser;
   try {
-    console.log('🚀 Starting scraping process...');
     isDataLoading = true;
 
     const executablePath = process.env.PUPPETEER_EXECUTABLE_PATH || puppeteer.executablePath();
@@ -88,11 +87,8 @@ const fetchExchangeRates = async () => {
 
     const [mmPage, naverPage] = await Promise.all([browser.newPage(), browser.newPage()]);
 
-    console.log('🌍 Successfully opened two pages.');
-
     const [usdToMmkRate, naverRates] = await Promise.all([
       (async () => {
-        console.log('Navigating to mmexchange.org...');
         await mmPage.goto(MM_URL, { waitUntil: 'domcontentloaded' });
         await mmPage.waitForSelector('#usdRate', { timeout: 60000 });
         return mmPage.evaluate(() => {
@@ -102,7 +98,6 @@ const fetchExchangeRates = async () => {
         });
       })(),
       (async () => {
-        console.log('Navigating to Naver Finance...');
         await naverPage.goto(NAV_URL, { waitUntil: 'domcontentloaded' });
         await naverPage.waitForSelector('tbody', { timeout: 60000 });
         return naverPage.evaluate((korToEng) => {
@@ -161,13 +156,11 @@ const fetchExchangeRates = async () => {
       .filter(item => item.currencyName !== 'Myanmar');
 
     exchangeData = convertedData;
-    console.log('📊 Scraping finished and data updated.');
   } catch (error) {
     console.error('❌ An error occurred during scraping:', error);
   } finally {
     if (browser) {
       await browser.close();
-      console.log('✅ Browser closed.');
     }
     isDataLoading = false;
   }
