@@ -1,0 +1,16 @@
+{
+  "name": "currency-scraper",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "type": "module",
+"scripts": {
+  "postinstall": "npx puppeteer browsers install chrome",
+  "start": "node server.js"
+},
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "puppeteer": "^24.16.0"
+  }
+}

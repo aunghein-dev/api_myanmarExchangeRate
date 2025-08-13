@@ -1,0 +1,38 @@
+# 🛠 Node.js build
+node_modules/
+dist/
+build/
+.env
+.env.local
+
+# 💻 System files
+.DS_Store
+Thumbs.db
+
+# 📦 Logs & temp
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+*.log
+
+# ⛔ Puppeteer Chromium cache
+.cache/
+.chromium/
+
+# 🐳 Docker (if used)
+docker-compose.override.yml
+
+# 📂 IDE
+.vscode/
+.idea/
+*.sw?
+
+# 📁 Output or results
+output/
+*.csv
+
+# 🔐 Secrets
+*.key
+*.pem
+*.crt
