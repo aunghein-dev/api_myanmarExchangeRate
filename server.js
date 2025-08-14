@@ -90,7 +90,7 @@ const fetchExchangeRates = async () => {
     const [usdToMmkRate, naverRates] = await Promise.all([
       (async () => {
         await mmPage.goto(MM_URL, { waitUntil: 'domcontentloaded' });
-        await mmPage.waitForSelector('#usdRate', { timeout: 60000 });
+        await mmPage.waitForSelector('#usdRate', { timeout: 10000 });
         return mmPage.evaluate(() => {
           const usdRateText = document.querySelector('#usdRate')?.textContent.trim();
           if (!usdRateText) return null;
@@ -99,7 +99,7 @@ const fetchExchangeRates = async () => {
       })(),
       (async () => {
         await naverPage.goto(NAV_URL, { waitUntil: 'domcontentloaded' });
-        await naverPage.waitForSelector('tbody', { timeout: 60000 });
+        await naverPage.waitForSelector('tbody', { timeout: 10000 });
         return naverPage.evaluate((korToEng) => {
           const rows = Array.from(document.querySelectorAll('tbody > tr'));
           const usdToKrwRate = parseFloat(rows[0].querySelectorAll('td')[1].textContent.replace(/,/g, ''));
@@ -121,11 +121,11 @@ const fetchExchangeRates = async () => {
               };
               let baseRateText = parseNumber(tds[1]?.textContent?.trim());
               let liveRate = parseFloat(baseRateText);
-              if (['JPY', 'VND', 'IDR'].includes(currencyCode)) {
+
+              if (['Japan', 'Vietnam', 'Indonesia'].includes(countryEng)) {
                 liveRate /= 100;
-                buyRate /= 100;
-                sellRate /= 100;
               }
+              
               if (countryEng === 'Japan') {
                 currencyCode = 'JPY';
               } else if (countryEng === 'Vietnam') {
@@ -133,6 +133,9 @@ const fetchExchangeRates = async () => {
               } else if (countryEng === 'Indonesia') {
                 currencyCode = 'IDR';
               }
+
+           
+
               return {
                 country: countryEng,
                 currencyCode,
