@@ -153,7 +153,7 @@ const fetchExchangeRates = async () => {
         ...item,
         liveRate: (item.liveRate * times).toFixed(4),
       }))
-      .filter(item => item.currencyName !== 'Myanmar');
+      .filter(item => item.country !== 'Myanmar');
 
     exchangeData = convertedData;
   } catch (error) {
